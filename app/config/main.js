@@ -1,5 +1,5 @@
 module.exports = {
-  secret: "yawsSuperSecretAPISecret",
-  database: "127.0.0.1:27017/faceDJ",
+  secret: process.env.SECRET,
+  database: process.env.MONGO_DB,
   port: process.env.PORT || 2002
 };
