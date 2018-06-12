@@ -1,19 +1,24 @@
 import express from "express";
-import Spotify from "spotify-web-api-node";
-
-const SPOTIFY_CONFIG = require("../config/spotify");
+import path from "path";
+import spotify from "./controllers/spotify";
 
 const router = express.Router();
 
-module.exports = app => {
-  router.use(
-    express.static(path.resolve(__dirname, "..", "build"), { maxAge: "0d" })
-  );
+const apiRoutes = express.Router(),
+  authRoutes = express.Router();
 
+module.exports = app => {
+  router.get("/login", spotify.login);
+  router.get("/callback", spotify.callback);
+
+  app.use(router);
+
+  //app.use(express.static(path.resolve(__dirname, "..", "build")));
+
+  // router.use(
+  //   express.static(path.resolve(__dirname, "..", "build"), { maxAge: "0d" })
+  // );
   // router.use("^/$", serverRenderer);
 
   // router.use("*", serverRenderer);
-
-  app.use(router);
-  console.log(app);
 };
